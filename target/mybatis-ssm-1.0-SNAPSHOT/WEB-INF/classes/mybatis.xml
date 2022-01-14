@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="dbConfig.properties"></properties>
+
+    <settings>
+        <!--数据库字段转驼峰命名法-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--多个参数的map的key定义方式-->
+        <setting name="useActualParamName" value="true"/>
+        <!--分步查询时是否开启延迟加载 先从单表查询、需要时再从关联表去关联查询-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--懒加载的对象是否任何懒属性全部加载出来-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--开启2级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.xiana.mybatis.bean"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="EmployeeMapper.xml"/>
+        <mapper resource="DepartmentMapper.xml"/>
+    </mappers>
+</configuration>
