@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>员工列表</title>
+    <script type="text/javascript" th:src="@{/static/js/jquery.js}"></script>
 </head>
 <body>
+    <a th:href="@{/employeeAdd}">添加员工</a>
     <h1>员工列表</h1>
     <table>
         <tr>
@@ -19,8 +21,26 @@
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.email}"></td>
             <td th:text="${employee.gender}"></td>
-            <td></td>
+            <td>
+                <a th:href="@{/employeeEdit/} + ${employee.id}">编辑员工</a>
+                <a class="my_delete" th:url="@{/employee/} + ${employee.id}">删除员工</a>
+            </td>
         </tr>
     </table>
 </body>
 </html>
+<script>
+    $(function (){
+        $(".my_delete").click(function (){
+            var url = $(this).attr('url');
+            var obj = $(this);
+            if(confirm("确定要删除？")){
+                $.post(url,{_method:"delete"},function(res){
+                    if(res.code){
+                        obj.closest('tr').remove();
+                    }
+                },"json");
+            }
+        })
+    })
+</script>

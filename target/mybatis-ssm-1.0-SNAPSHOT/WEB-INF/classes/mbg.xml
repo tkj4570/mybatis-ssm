@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--引入外部配置文件-->
+    <properties resource="druid.properties"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- 取消注释 -->
+        <commentGenerator>
+            <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示包含 -->
+            <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
+            <property name="suppressDate" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 配置数据库连接信息 -->
+        <jdbcConnection driverClass="${mysql.driverClassName}"
+                        connectionURL="${mysql.url}"
+                        userId="${mysql.username}"
+                        password="${mysql.password}">
+        </jdbcConnection>
+
+
+        <!--数据库字段类型解析器-->
+        <javaTypeResolver>
+            <!-- 浮点精度更高 -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 指定javabean生成的位置 -->
+        <javaModelGenerator targetPackage="com.xiana.mybatis.bean"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 指定sql映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 指定dao接口生成的位置，mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.xiana.mybatis.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 指定每个表的生成策略 -->
+<!--        <table tableName="tbl_employee" domainObjectName="Employee"></table>-->
+        <table tableName="tbl_dept" domainObjectName="Department"></table>
+    </context>
+</generatorConfiguration>

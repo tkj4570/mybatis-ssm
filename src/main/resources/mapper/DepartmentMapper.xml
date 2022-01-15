@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiana.mybatis.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.xiana.mybatis.bean.Department">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+  </resultMap>
+  <insert id="insert" parameterType="com.xiana.mybatis.bean.Department">
+    insert into tbl_dept (id, dept_name)
+    values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dept_name
+    from tbl_dept
+  </select>
+</mapper>

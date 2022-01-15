@@ -4,12 +4,18 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
 
 
 /**
@@ -28,8 +34,17 @@ import org.springframework.stereotype.Service;
         useDefaultFilters = false
 )
 @PropertySource("classpath:druid.properties")
+@EnableTransactionManagement
 public class SpringConfig {
 
+    /**
+     * 配置数据源
+     * @param driver
+     * @param url
+     * @param username
+     * @param password
+     * @return
+     */
     @Bean("dataSource")
     public DruidDataSource druidDataSource(@Value("${mysql.driverClassName}") String driver, @Value("${mysql.url}") String url, @Value("${mysql.username}") String username, @Value("${mysql.password}") String password) {
         DruidDataSource druidDataSource = new DruidDataSource();
@@ -39,6 +54,19 @@ public class SpringConfig {
         druidDataSource.setPassword(password);
         return druidDataSource;
     }
+
+    /**
+     * 开启事务管理器
+     * @param dataSource
+     * @return
+     */
+    @Bean
+    @Autowired
+    public PlatformTransactionManager dataSourceTransactionManager(DataSource dataSource){
+        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(dataSource);
+        return dataSourceTransactionManager;
+    }
+
 
     /**
      * 注入mybatis的sqlSessionFactory
@@ -74,6 +102,10 @@ public class SpringConfig {
         return factoryBean.getObject();
     }
 
+    /**
+     * mapper扫描器
+     * @return
+     */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();

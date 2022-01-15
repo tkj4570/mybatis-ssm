@@ -9,4 +9,10 @@ public interface EmployeeMapper {
     Employee getEmployeeById(Integer id);
 
     List<Employee> list();
+
+    int addEmployee(Employee employee);
+
+    int editEmployee(Employee employee);
+
+    int deleteEmployee(Integer id);
 }

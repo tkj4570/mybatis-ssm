@@ -28,4 +28,20 @@ public class EmployeeService {
         List<Employee> list = employeeMapper.list();
         return list;
     }
+
+    public int add(Employee employee){
+        return employeeMapper.addEmployee(employee);
+    }
+
+    public int edit(Employee employee){
+        return employeeMapper.editEmployee(employee);
+    }
+
+    public int delete(Integer id){
+        return employeeMapper.deleteEmployee(id);
+    }
+
+    public Employee getEmployeeById(Integer id){
+        return employeeMapper.getEmployeeById(id);
+    }
 }
