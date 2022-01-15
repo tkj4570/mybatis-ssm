@@ -7,4 +7,5 @@
 /var/www/html/mavenwork/mybatis-ssm/src/main/java/com/xiana/mybatis/interceptor/FirstInterceptor.java
 /var/www/html/mavenwork/mybatis-ssm/src/main/java/com/xiana/mybatis/service/EmployeeService.java
 /var/www/html/mavenwork/mybatis-ssm/src/main/java/com/xiana/mybatis/config/SpringConfig.java
+/var/www/html/mavenwork/mybatis-ssm/src/main/java/com/xiana/mybatis/controller/EmployeeController.java
 /var/www/html/mavenwork/mybatis-ssm/src/main/java/com/xiana/mybatis/dao/DepartmentMapper.java

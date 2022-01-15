@@ -11,4 +11,32 @@
     <select id="list" resultType="com.xiana.mybatis.bean.Employee">
         select * from tbl_employee
     </select>
+
+    <insert id="addEmployee">
+        insert into tbl_employee(<include refid="insertColumn"></include>) values(#{lastName},#{email},#{gender})
+    </insert>
+
+    <update id="editEmployee">
+        update tbl_employee set
+        <trim suffixOverrides=",">
+            <if test="lastName != null or lastName != ''">
+                last_name = #{lastName},
+            </if>
+            <if test="email != null or email != ''">
+                email = #{email},
+            </if>
+            <if test="gender == 1 or gender == 0">
+                gender = #{gender},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmployee">
+        delete from tbl_employee where id = #{id}
+    </delete>
+
+    <sql id="insertColumn">
+        `last_name`,`email`,`gender`
+    </sql>
 </mapper>
